@@ -1,5 +1,5 @@
 interface SectionTitleProps {
-  title: string;
+  title: JSX.Element | string;
   description?: JSX.Element;
   children?: JSX.Element;
   center?: boolean;
@@ -22,7 +22,7 @@ export default function SectionTitle({
           center ? 'justify-center' : 'justify-start'
         }  gap-0`}
       >
-        <span className="font-unbounded text-h5">{title}</span>
+        <span className="text-h5">{title}</span>
         <span className="text-body-2">{description}</span>
       </div>
       {children}

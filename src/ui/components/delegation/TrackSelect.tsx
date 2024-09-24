@@ -27,6 +27,11 @@ import { CheckBox } from '../CheckBox';
 import { SimpleAnalytics } from '../../../analytics';
 import Tooltip from '../Tooltip';
 
+const redirectUrl = new URL(
+  '~assets/icons/redirect.svg',
+  import.meta.url
+).toString();
+
 interface ITrackCheckableCardProps {
   track: TrackMetaData;
   referenda: Map<number, ReferendumOngoing>;
@@ -168,8 +173,8 @@ export function TrackCheckableCard({
   const isProcessing = extractIsProcessing(state);
   const disabled = !!delegation || isProcessing;
   return (
-    <div className="flex w-full flex-col gap-3">
-      <div className="mb-4 flex flex-col gap-2">
+    <div className="flex w-full flex-col gap-1">
+      <div className="mb-4 flex flex-col gap-1">
         <div className="flex items-center justify-between">
           <div className="flex w-full items-center gap-1">
             <CheckBox
@@ -242,6 +247,9 @@ export function TrackSelect({
   const { selectedTrackIndexes, setTrackSelection } = useDelegation();
   const allTracks = flattenAllTracks(tracks);
   const undelegatedTracks = filterUndelegatedTracks(state, allTracks);
+  const selectedTracks = Array.from(selectedTrackIndexes.entries()).map(
+    ([id]) => allTracks.get(id)!
+  );
   const allTrackCheckboxTitle = `All ${
     undelegatedTracks.length !== allTracks.size ? 'undelegated' : ''
   } tracks`;
@@ -264,23 +272,49 @@ export function TrackSelect({
         </div>
       ) : (
         <div className="flex snap-start flex-col items-center">
-          <span className="px-3 font-unbounded text-h4">
-            Or Select tracks to delegate
+          <span className="px-3 font-unbounded text-4xl">Or</span>
+          <span className="mt-6 font-unbounded text-2xl">
+            Select tracks to delegate
           </span>
-          <p className="px-4 text-body">
+          <p className="px-4 text-body font-medium">
             First, select the tracks you would like to delegate, then pick the
             address you&apos;d like to delegate to.
           </p>
         </div>
       )}
-      <div className="flex flex-col gap-2">
+      <div className="border-1 flex w-full flex-col gap-2 border-solid border-black">
+        <div className="flex items-center justify-center">
+          <ProgressStepper step={selectedTracks?.length ? 1 : 0} />
+        </div>
+
         <SectionTitle
           className=""
-          title="Select a track"
+          title={
+            <div className="flex h-6 items-center gap-1">
+              <span className="font-unbounded text-2xl">Select a track</span>
+              <span className="cursor-pointer text-xs text-primary ">
+                <a
+                  href={`https://${network?.toLowerCase()}.polkassembly.io/delegation`}
+                  className="-mb-2 flex gap-1 font-semibold"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  View Tracks on Polkassembly{' '}
+                  <img
+                    className="cursor-pointer"
+                    src={redirectUrl}
+                    height={12}
+                    width={12}
+                    alt=""
+                  />
+                </a>
+              </span>
+            </div>
+          }
           description={
             referendaByTrack.size > 0 ? (
-              <span>
-                There are currently <b>{referendaByTrack.size}</b> active
+              <span className="text-sm font-medium">
+                There are currently <b>{referendaByTrack?.size || 0}</b> active
                 tracks.
               </span>
             ) : (
@@ -290,9 +324,7 @@ export function TrackSelect({
             )
           }
           step={0}
-        >
-          <ProgressStepper step={0} />
-        </SectionTitle>
+        ></SectionTitle>
         <div className="flex flex-col gap-2 lg:gap-4 ">
           <div className="sticky top-52 mb-4 flex flex-row justify-between overflow-visible bg-bg-default/80 px-3 py-3 backdrop-blur-sm lg:top-44 lg:px-8">
             <CheckBox
@@ -333,11 +365,14 @@ export function TrackSelect({
             </div>
           </div>
           <div
-            className={`mb-12 flex w-full flex-col justify-between px-3 md:flex-row md:gap-12 lg:px-8 ${className}`}
+            className={`mb-12 flex w-full flex-col justify-between px-3 md:flex-row md:gap-5 lg:px-8 ${className} `}
           >
             {tracks.map((category, idx) => (
-              <div key={idx} className="flex w-full flex-col gap-6 md:w-1/4">
-                <div className="border-b-[1px] pb-3">
+              <div
+                key={idx}
+                className="flex w-full flex-col gap-2 rounded-lg bg-white px-4 pt-4 text-[#243A57]"
+              >
+                <div className="border-b-[1px] pb-2">
                   <CheckBox
                     title={category.title}
                     checked={category.tracks.every(
@@ -362,7 +397,7 @@ export function TrackSelect({
                     }
                   />
                 </div>
-                <div className="flex w-full flex-col gap-6 lg:gap-4">
+                <div className="flex w-full flex-col gap-2 lg:gap-2">
                   {category.tracks.map((track, idx) => (
                     <TrackCheckableCard
                       key={idx}

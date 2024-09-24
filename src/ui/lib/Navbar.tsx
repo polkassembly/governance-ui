@@ -65,12 +65,12 @@ const Component = forwardRef<HTMLElement, BaseElementProps>(
   ({ className, children }, ref) => {
     return (
       <nav
-        className={`fixed z-10 w-full rounded bg-bg-default px-2  md:px-4 ${
+        className={`fixed z-10 w-full bg-bg-default px-2  md:px-4 ${
           className || ''
         }`}
         ref={ref}
       >
-        <div className="mx-auto flex w-full flex-wrap items-center justify-between  py-2 md:py-6">
+        <div className="mx-auto flex w-full flex-wrap items-center justify-between md:py-6">
           <NavbarContextProvider>{children}</NavbarContextProvider>
         </div>
         <div className="h-[1px] w-full bg-[#E9E9E9]" />

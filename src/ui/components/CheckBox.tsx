@@ -52,7 +52,7 @@ export function CheckBox({
 
       <label
         htmlFor={checkboxId}
-        className={`flex w-full ${
+        className={`flex w-full text-[#243A57] ${
           disabled ? '' : 'cursor-pointer'
         } items-center justify-between gap-2`}
       >
@@ -65,7 +65,7 @@ export function CheckBox({
         </div>
         <span
           className={`select-none whitespace-nowrap text-body-2 font-semibold ${
-            disabled ? 'text-fg-disabled' : 'text-gray-900'
+            disabled ? 'text-fg-disabled' : 'text-[#243A57]'
           }`}
         >
           {title}
