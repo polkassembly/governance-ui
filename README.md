@@ -65,4 +65,4 @@ then run your container with:
 podman run --d -p 8080:80 localhost/polkadot-delegation-dashboard
 ```
 
-and access the Delegation Dashboard at http://localhost:8080/
+and access the Delegation Dashboard at http://localhost:8080/.
