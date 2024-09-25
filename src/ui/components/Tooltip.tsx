@@ -1,35 +1,48 @@
-import { useState } from 'react';
-import { Modal } from '../lib';
+import React, { useState, useRef } from 'react';
 import { InformationalIcon } from '../icons';
 
-interface TooltipProps {
-  title?: string;
-  content?: JSX.Element;
-  children?: React.ReactNode;
-}
-export default function Tooltip({ content, title }: TooltipProps) {
-  const [infoVisible, setInfoVisible] = useState(false);
+const Tooltip = ({
+  content,
+  title,
+}: {
+  content?: JSX.Element | string;
+  title: JSX.Element | string;
+}) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const targetRef = useRef(null);
 
   return (
     <div
-      className="flex cursor-pointer items-center gap-2"
-      onClick={() =>
-        infoVisible ? setInfoVisible(false) : setInfoVisible(true)
-      }
+      ref={targetRef}
+      onMouseEnter={() => setIsVisible(true)}
+      onMouseLeave={() => setIsVisible(false)}
+      style={{ position: 'relative', display: 'inline-block' }}
     >
       <InformationalIcon />
-      {infoVisible && (
-        <Modal
-          size="lg"
-          open={infoVisible}
-          onClose={() => setInfoVisible(false)}
+
+      {isVisible && (
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '100%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            padding: '8px',
+            color: '#fff',
+            backgroundColor: '#333',
+            borderRadius: '4px',
+            zIndex: 1000,
+            minWidth: 220,
+          }}
         >
-          <div className="flex max-h-[90vh] w-full flex-col gap-4 p-4">
-            <h2 className="font-unbounded text-h5 capitalize">{title}</h2>
-            {content}
+          <div className="flex flex-col gap-1">
+            <span className="font-unbounded text-xs">{title}</span>
+            <span className="text-xs">{content}</span>
           </div>
-        </Modal>
+        </div>
       )}
     </div>
   );
-}
+};
+
+export default Tooltip;

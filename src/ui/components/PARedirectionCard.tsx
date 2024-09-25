@@ -9,13 +9,14 @@ const logoUrl = new URL(
 const PARedirectionCard = ({ network }: { network: Network }) => {
   return (
     <div>
-      <div className="pa-info-board flex h-20 w-full items-center justify-center rounded-b-[20px] text-white">
-        <div className="font-poppins flex items-center gap-1 text-base font-medium">
-          <span> Try Delegation on </span>
-          <Link
-            to={`https://${network?.toLowerCase()}.polkassembly.io/delegation`}
-            target="_blank"
-          >
+      <Link
+        to={`https://${network?.toLowerCase()}.polkassembly.io/delegation`}
+        target="_blank"
+      >
+        <div className="pa-info-board flex h-20 w-full items-center justify-center rounded-b-[20px] text-white">
+          <div className="font-poppins flex items-center gap-1 text-base font-medium">
+            <span> Try Delegation on </span>
+
             <img
               className="cursor-pointer"
               src={logoUrl}
@@ -23,10 +24,10 @@ const PARedirectionCard = ({ network }: { network: Network }) => {
               width={120}
               alt=""
             />
-          </Link>
-          <span> for a seamless experience!</span>
+            <span> for a seamless experience!</span>
+          </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };

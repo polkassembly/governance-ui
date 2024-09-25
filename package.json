@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm -rf .parcel-cache dist out node_modules yarn.lock",
     "prepare": "husky install",
-    "dev": "DEFAULT_NETWORK=kusama VERSION=`git rev-parse --short HEAD` parcel serve ./src/index.html",
+    "dev": "DEFAULT_NETWORK=polkadot VERSION=`git rev-parse --short HEAD` parcel serve ./src/index.html",
     "build": "VERSION=`git rev-parse --short HEAD` parcel build ./src/index.html --detailed-report --log-level verbose --public-url ${PUBLIC_URL:-/} && cp assets/robots.txt dist/ && mkdir -p dist/data && cp -R assets/data/* dist/data/",
     "fix:assets": "jsonlint -i assets/data/",
     "fix:format": "prettier -w ./src",

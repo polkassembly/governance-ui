@@ -12,9 +12,13 @@ export const ActiveDelegates = ({
   return (
     <>
       <div className="flex w-full snap-start flex-col gap-2">
-        <SectionTitle title="Active Delegates" />
+        <SectionTitle
+          title={
+            <span className="font-unbounded text-2xl">Active Delegates</span>
+          }
+        />
         <div className="px-3 pb-2 lg:px-8">
-          <div className="grid grid-cols-1 place-items-center  gap-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-4">
+          <div className="grid grid-cols-1 place-items-center gap-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-4">
             {Array.from(delegatesWithTracks.entries()).map(
               ([delegate, delegatedTracks], idx) => (
                 <DelegateCard

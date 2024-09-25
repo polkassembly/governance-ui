@@ -56,8 +56,7 @@ export function DelegationPanel({
 
   const network = (state as ConnectedState).network;
 
-  const { selectedTrackIndexes, sectionRefs, scrollToSection } =
-    useDelegation();
+  const { sectionRefs, scrollToSection } = useDelegation();
 
   // If user has some active delegation,
   return (
@@ -94,7 +93,7 @@ export function DelegationPanel({
         tracks={state.tracks}
         delegateHandler={() => scrollToSection('delegation')}
       />
-      {selectedTrackIndexes.size > 0 && (
+      {
         <div className="pt-0" ref={sectionRefs.get('delegation')}>
           <DelegateSection
             state={state}
@@ -102,7 +101,7 @@ export function DelegationPanel({
             network={network}
           />
         </div>
-      )}
+      }
     </div>
   );
 }
