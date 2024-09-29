@@ -11,6 +11,7 @@ import Headline from '../../components/Headline.js';
 import { DelegatesBar } from '../../components/DelegatesBar.js';
 import { ActiveDelegates } from '../../components/ActiveDelegates.js';
 import { DelegateSection } from '../../components/delegation/DelegateSection.js';
+import PARedirectionCard from 'src/ui/components/PARedirectionCard.js';
 
 export function CloseIcon() {
   return (
@@ -55,12 +56,12 @@ export function DelegationPanel({
 
   const network = (state as ConnectedState).network;
 
-  const { selectedTrackIndexes, sectionRefs, scrollToSection } =
-    useDelegation();
+  const { sectionRefs, scrollToSection } = useDelegation();
 
   // If user has some active delegation,
   return (
     <div className="flex w-full flex-col gap-12">
+      <PARedirectionCard network={network} />
       {delegatesWithTracks.size ? (
         <ActiveDelegates
           delegatesWithTracks={delegatesWithTracks}
@@ -92,11 +93,15 @@ export function DelegationPanel({
         tracks={state.tracks}
         delegateHandler={() => scrollToSection('delegation')}
       />
-      {selectedTrackIndexes.size > 0 && (
-        <div className="pt-12" ref={sectionRefs.get('delegation')}>
-          <DelegateSection state={state} delegates={delegates} />
+      {
+        <div className="pt-0" ref={sectionRefs.get('delegation')}>
+          <DelegateSection
+            state={state}
+            delegates={delegates}
+            network={network}
+          />
         </div>
-      )}
+      }
     </div>
   );
 }

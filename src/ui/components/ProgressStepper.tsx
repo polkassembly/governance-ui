@@ -19,7 +19,7 @@ export default function ProgressStepper({ step, steps }: ProgressStepperProps) {
     rightIcon = <div className="h-1 w-1 rounded-full bg-primary" />;
 
   return (
-    <div className="flex w-full flex-col gap-2 font-medium lg:w-1/2">
+    <div className="flex w-full flex-col gap-2 font-medium lg:w-2/3">
       <div className="flex h-[24px] rounded-full bg-gray-200 p-[1px]">
         <div
           className={`flex items-center justify-center px-2 ${

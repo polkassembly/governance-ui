@@ -62,3 +62,7 @@ html {
 body {
   background-color: #f5f4f4;
 }
+.pa-info-board {
+  margin-top: 0px;
+  background: radial-gradient(99.69% 25520% at 1.22% 0%, #42122c 0%, #a6075c 32.81%, #952863 77.08%, #e5007a 100%);
+}
